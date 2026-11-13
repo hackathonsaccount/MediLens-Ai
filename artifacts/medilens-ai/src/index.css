@@ -995,3 +995,78 @@ body {
   .landing-page .hero-visual { animation: none; }
   .scroll-progress-track span { transition: none; }
 }
+
+
+/* Mineral & Moss — refined visual system */
+:root {
+  --background: 48 29% 94%;
+  --foreground: 130 9% 14%;
+  --primary: 130 8% 28%;
+  --primary-foreground: 48 29% 94%;
+  --ring: 100 10% 42%;
+  --border: 60 12% 82%;
+  --card-border: 60 12% 86%;
+  --app-font-sans: 'DM Sans', sans-serif;
+  --app-font-serif: 'Manrope', sans-serif;
+}
+.dark {
+  --background: 130 9% 14%;
+  --foreground: 48 29% 94%;
+  --primary: 100 10% 58%;
+  --primary-foreground: 130 9% 14%;
+}
+.sidebar { background: linear-gradient(155deg, #29352c 0%, #202a23 62%, #1b251f 100%); }
+.brandmark { color: #29352c; }
+.brand-name > span, .brand-name i { color: #788477; }
+.brand-symbol { border-color: rgba(120,132,119,.38); background: rgba(120,132,119,.1); }
+.brand-symbol span { background: #788477; }
+.button-primary { background: #414d43; box-shadow: 0 8px 22px rgba(32,39,34,.13); }
+.button-primary:hover:not(:disabled) { background: #303b33; }
+.page-title .eyebrow, .upload-copy .eyebrow, .section-label-row .eyebrow,
+.sample-top .eyebrow, .training-card-heading .eyebrow { color: #667866; }
+.cyan-chip, .sample-badge { color: #414d43; background: #e6e9df; }
+.upload-graphic { filter: saturate(.55); }
+.file-outline { background: linear-gradient(155deg,rgba(244,242,234,.96),rgba(213,213,201,.55)); border-color: #a8ada0; }
+.file-line, .file-line.long { background: #a8ada0; }
+.file-measure { border-color: #d5d5c9; background: rgba(168,173,160,.15); }
+.file-measure span { background: #a8ada0; }
+.file-measure i { background: #788477; }
+.graphic-orbit { border-color: rgba(120,132,119,.38); }
+.graphic-orbit-two { border-color: rgba(65,77,67,.2); }
+.sample-art { background: radial-gradient(ellipse at 49% 70%, rgba(120,132,119,.16), transparent 58%); }
+.sample-document { border-color: #d5d5c9; }
+.sample-row.active { background: #e9ece4; color: #414d43; }
+.sample-row.active i { background: #788477; }
+.status-dot, .date-pulse, .live-mark { background: #a8ada0; box-shadow: 0 0 0 3px rgba(168,173,160,.18); }
+.scroll-progress-track { background: rgba(32,39,34,.08); }
+.scroll-progress-track span { background: linear-gradient(90deg, #414d43, #a8ada0, #788477); box-shadow: 0 0 14px rgba(120,132,119,.32); }
+.mobile-scrim { background: rgba(32,39,34,.52); }
+.high-contrast { --ring: 130 8% 28%; }
+.dark.high-contrast { --ring: 85 12% 84%; }
+
+/* Rich but restrained motion: layered reveals, depth, and tactile controls */
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+.scroll-reveal { opacity: 0; transform: translateY(26px); filter: blur(3px); will-change: opacity, transform, filter; }
+.scroll-reveal.scroll-revealed { animation: mineral-reveal .85s cubic-bezier(.2,.72,.2,1) both; }
+@keyframes mineral-reveal { to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+.landing-page .hero-visual { animation: mineral-float 9s ease-in-out infinite; }
+@keyframes mineral-float { 0%,100% { transform: translate3d(0,0,0); } 50% { transform: translate3d(0,-10px,0); } }
+.interactive-card, .surface-card, .glass-panel, .trail-step, .source-glass-card {
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, border-color .35s ease;
+}
+.interactive-card:hover, .surface-card:hover, .trail-step:hover, .source-glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(32,39,34,.10);
+}
+.button { transition: transform .22s ease, background .22s ease, box-shadow .22s ease; }
+.button:active { transform: scale(.98); }
+.landing-page .hero h1 { text-wrap: balance; }
+.landing-page .hero-visual { border-color: rgba(120,132,119,.22); }
+.landing-page .orbit-core { box-shadow: 0 18px 60px rgba(32,39,34,.12); }
+.landing-page .landing-last { background: radial-gradient(ellipse at 50% 0%, rgba(168,173,160,.18), transparent 62%); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scroll-reveal, .scroll-reveal.scroll-revealed { opacity: 1; transform: none; filter: none; animation: none; }
+  .landing-page .hero-visual { animation: none; }
+  .interactive-card, .surface-card, .glass-panel, .trail-step, .source-glass-card, .button { transition: none; }
+}
