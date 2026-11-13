@@ -1,0 +1,61 @@
+text,label
+"Test information: comprehensive metabolic panel, serum specimen",test_information
+"Test name: complete blood count, whole blood",test_information
+"Laboratory test details for a routine blood panel",test_information
+"Analyte and specimen information for the requested test",test_information
+"Blood test information; sample collected in a clinic",test_information
+"Test information section: thyroid panel",test_information
+"Laboratory test: ferritin measurement",test_information
+"Test details and specimen type are listed below",test_information
+"Requested test name and sample type",test_information
+"Panel overview: blood chemistry measurements",test_information
+"Test information, sample source, and collection details",test_information
+"Laboratory report lists the test name and method",test_information
+"Measurement result: hemoglobin 12.4 g/dL",measurement
+"Glucose result 92 mg/dL",measurement
+"Creatinine measured value: 0.9 mg/dL",measurement
+"Platelet count: 245 x10^9/L",measurement
+"Observed result for ferritin is 38 ng/mL",measurement
+"The reported value is 5.4 percent",measurement
+"Result value: 4.2 mmol/L",measurement
+"Measured concentration equals 7.6 g/dL",measurement
+"Numerical result from the laboratory: 128 cells/uL",measurement
+"Value recorded for the test: 2.1 mIU/L",measurement
+"Hemoglobin result 13.1 g/dL",measurement
+"Fasting glucose measured at 5.2 mmol/L",measurement
+"Reference interval: 12.0-16.0 g/dL",reference_range
+"Printed range for this test is 70-99 mg/dL",reference_range
+"Laboratory reference range: 0.6-1.2 mg/dL",reference_range
+"Expected reference interval 4.0 to 5.6 percent",reference_range
+"Reference values shown on the report: 150-400 x10^9/L",reference_range
+"The printed range is 3.5-5.0 mmol/L",reference_range
+"Reference interval for adults: 10-20 units/L",reference_range
+"Range provided by the lab: less than 5.7 percent",reference_range
+"Reference range and units appear beside the result",reference_range
+"The report includes a laboratory interval of 5-15 mg/L",reference_range
+"Printed reference interval: 0-10 units/L",reference_range
+"Reference range varies by laboratory and method",reference_range
+"Comment: interpret this result with the clinical history",explanatory_note
+"Laboratory note: repeat testing may be required",explanatory_note
+"Method note describes the assay used for this sample",explanatory_note
+"Interpretive comment: this result is one part of a broader assessment",explanatory_note
+"Explanatory note: values may differ by laboratory",explanatory_note
+"The report comment explains a limitation of the method",explanatory_note
+"Note: the specimen was hemolyzed",explanatory_note
+"Additional notes about the test method and limitations",explanatory_note
+"Comment from the laboratory about sample quality",explanatory_note
+"Interpretation notes are for the ordering professional",explanatory_note
+"Method information and explanatory comments",explanatory_note
+"Important note: check results with a qualified professional",explanatory_note
+"Administrative information: sample accession number SAMPLE-101",administrative
+"Patient identifier: DEMO-001; no real patient data",administrative
+"Laboratory address and telephone number",administrative
+"Report administrative details: page 1 of 2",administrative
+"Ordering location and account reference SAMPLE-220",administrative
+"Collection date and laboratory record number",administrative
+"Administrative section: sample received at the laboratory",administrative
+"Specimen tracking code SAMPLE-003",administrative
+"Report number and clinic contact information",administrative
+"Patient ID SAMPLE-555, synthetic example only",administrative
+"Laboratory billing and contact details",administrative
+"Administrative metadata and report routing",administrative

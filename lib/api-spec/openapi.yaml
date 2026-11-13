@@ -1,0 +1,381 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: API specification
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: medilens
+    description: Educational document understanding operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /medilens/dashboard:
+    get:
+      operationId: getMediLensDashboard
+      tags: [medilens]
+      summary: Get the demonstration dashboard
+      responses:
+        "200":
+          description: Dashboard summary using fictional sample data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+  /medilens/demo-report:
+    get:
+      operationId: getDemoReport
+      tags: [medilens]
+      summary: Get the fictional demonstration report
+      responses:
+        "200":
+          description: Fictional report analysis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DocumentAnalysis"
+  /medilens/glossary:
+    get:
+      operationId: getGlossary
+      tags: [medilens]
+      summary: Search the educational glossary
+      parameters:
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: language
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [en, ar]
+      responses:
+        "200":
+          description: Matching glossary entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/GlossaryEntry"
+  /medilens/sources:
+    get:
+      operationId: getMediLensSources
+      tags: [medilens]
+      summary: List verified educational sources
+      responses:
+        "200":
+          description: Source directory
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EducationalSource"
+  /medilens/analyze:
+    post:
+      operationId: analyzeReport
+      tags: [medilens]
+      summary: Extract text and structure from a document
+      description: Processes the upload in memory and does not retain the file or send it to an AI provider.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DocumentUploadInput"
+      responses:
+        "200":
+          description: Extracted document analysis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DocumentAnalysis"
+        "400":
+          description: Unsupported or unreadable document
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "413":
+          description: The document exceeds the upload size limit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+  /medilens/questions:
+    post:
+      operationId: generateDoctorQuestions
+      tags: [medilens]
+      summary: Prepare questions for a healthcare professional
+      description: Generates educational discussion prompts from supplied terminology; it does not suggest diagnoses or treatment.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuestionRequest"
+      responses:
+        "200":
+          description: Questions grouped by topic
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/QuestionGroup"
+  /medilens/demo-explanation:
+    post:
+      operationId: explainDemoTerm
+      tags: [medilens]
+      summary: Explain a glossary term in the fictional demo
+      description: Only accepts a curated generic term and never receives uploaded document content or measurements.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DemoExplanationRequest"
+      responses:
+        "200":
+          description: Educational explanation and its source
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DemoExplanation"
+        "400":
+          description: The term is not part of the fictional demonstration
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    ApiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required: [error]
+    DashboardSummary:
+      type: object
+      properties:
+        demoReport:
+          $ref: "#/components/schemas/DocumentSummary"
+        workflow:
+          type: array
+          items:
+            $ref: "#/components/schemas/WorkflowStage"
+        privacyNote:
+          type: string
+      required: [demoReport, workflow, privacyNote]
+    DocumentSummary:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        fileName:
+          type: string
+        createdAt:
+          type: string
+        pageCount:
+          type: integer
+        sourceMode:
+          type: string
+          enum: [fictional_demo, local_extraction]
+        termCount:
+          type: integer
+        measurementCount:
+          type: integer
+      required: [id, title, fileName, createdAt, pageCount, sourceMode, termCount, measurementCount]
+    WorkflowStage:
+      type: object
+      properties:
+        key:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+      required: [key, title, description]
+    DocumentUploadInput:
+      type: object
+      properties:
+        fileName:
+          type: string
+          maxLength: 255
+        mimeType:
+          type: string
+          enum: [application/pdf, image/jpeg, image/png]
+        contentBase64:
+          type: string
+          maxLength: 14000000
+      required: [fileName, mimeType, contentBase64]
+    DocumentAnalysis:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        fileName:
+          type: string
+        createdAt:
+          type: string
+        pageCount:
+          type: integer
+        sourceMode:
+          type: string
+          enum: [fictional_demo, local_extraction]
+        confidence:
+          type: string
+          enum: [high, partial, low]
+        uncertainty:
+          type: string
+        sections:
+          type: array
+          items:
+            $ref: "#/components/schemas/DocumentSection"
+        terms:
+          type: array
+          items:
+            $ref: "#/components/schemas/GlossaryEntry"
+        measurements:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExtractedMeasurement"
+        sources:
+          type: array
+          items:
+            $ref: "#/components/schemas/EducationalSource"
+      required: [id, title, fileName, createdAt, pageCount, sourceMode, confidence, uncertainty, sections, terms, measurements, sources]
+    DocumentSection:
+      type: object
+      properties:
+        title:
+          type: string
+        content:
+          type: string
+        page:
+          type: integer
+        classification:
+          type: string
+          enum: [test_information, measurement, reference_range, explanatory_note, administrative, unclassified]
+      required: [title, content, page, classification]
+    ExtractedMeasurement:
+      type: object
+      properties:
+        label:
+          type: string
+        originalValue:
+          type: string
+        unit:
+          type: string
+        printedRange:
+          type: ["string", "null"]
+        page:
+          type: integer
+        context:
+          type: string
+      required: [label, originalValue, unit, printedRange, page, context]
+    GlossaryEntry:
+      type: object
+      properties:
+        term:
+          type: string
+        simple:
+          type: string
+        detailed:
+          type: string
+        example:
+          type: string
+        simpleArabic:
+          type: string
+        detailedArabic:
+          type: string
+        sourceIds:
+          type: array
+          items:
+            type: string
+      required: [term, simple, detailed, example, simpleArabic, detailedArabic, sourceIds]
+    EducationalSource:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        publisher:
+          type: string
+        url:
+          type: string
+          format: uri
+        description:
+          type: string
+      required: [id, name, publisher, url, description]
+    QuestionRequest:
+      type: object
+      properties:
+        terms:
+          type: array
+          items:
+            type: string
+          maxItems: 20
+      required: [terms]
+    QuestionGroup:
+      type: object
+      properties:
+        topic:
+          type: string
+        questions:
+          type: array
+          items:
+            type: string
+      required: [topic, questions]
+    DemoExplanationRequest:
+      type: object
+      properties:
+        term:
+          type: string
+      required: [term]
+    DemoExplanation:
+      type: object
+      properties:
+        term:
+          type: string
+        explanation:
+          type: string
+        mode:
+          type: string
+          enum: [ai_demo, static_demo]
+        source:
+          $ref: "#/components/schemas/EducationalSource"
+      required: [term, explanation, mode, source]
+

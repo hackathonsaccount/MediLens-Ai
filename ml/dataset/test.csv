@@ -1,0 +1,21 @@
+text,label
+"Test profile: basic chemistry panel, blood specimen",test_information
+"Laboratory test requested: thyroid-stimulating hormone",test_information
+"Test and specimen details for this blood analysis",test_information
+"Panel name and assay information",test_information
+"Observed hemoglobin level: 11.8 g/dL",measurement
+"Measured glucose result equals 101 mg/dL",measurement
+"Numerical platelet value 280 x10^9/L",measurement
+"Reported creatinine value is 1.0 mg/dL",measurement
+"Laboratory interval: 11.5-15.5 g/dL",reference_range
+"Printed reference values range from 65 to 100 mg/dL",reference_range
+"Reference interval shown is 3.8-5.2 mmol/L",reference_range
+"The provided lab range is 20-200 ng/mL",reference_range
+"Comment: results should be considered alongside other information",explanatory_note
+"Note about sample quality and method limitations",explanatory_note
+"Additional interpretive information from the laboratory",explanatory_note
+"Method note: this assay has analytical limitations",explanatory_note
+"Sample tracking number SAMPLE-806",administrative
+"Administrative report metadata, clinic phone and address",administrative
+"Patient identifier DEMO-900; fictional training row",administrative
+"Collection record and accession code SAMPLE-120",administrative

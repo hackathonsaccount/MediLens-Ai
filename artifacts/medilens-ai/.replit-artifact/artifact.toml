@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "MediLens AI"
+description = "An educational healthcare information platform that helps people review fictional or personal medical reports, understand terminology, explore source-linked explanations, and prepare questions for a healthcare professional."
+version = "1.0.0"
+id = "artifacts/medilens-ai"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23437
+
+[services.development]
+run = "pnpm --filter @workspace/medilens-ai run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/medilens-ai", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/medilens-ai/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23437"
+BASE_PATH = "/"
