@@ -21,6 +21,7 @@ import {
   Settings2, ShieldCheck, Sparkles, Sun, Trash2, Upload, X, Zap,
 } from 'lucide-react';
 import { Link, Route, Switch, useLocation } from 'wouter';
+import { localDashboard, localDemoReport, localGlossary, localSources } from '@/lib/static-content';
 
 const queryClient = new QueryClient();
 
@@ -368,10 +369,10 @@ function AppRoot() {
   const [highContrast, setHighContrast] = useState(() => localStorage.getItem('medilens-contrast') === 'true');
   const [glossarySearch, setGlossarySearch] = useState('');
   const glossaryParams = useMemo(() => ({ search: glossarySearch.trim() || undefined, language }), [glossarySearch, language]);
-  const dashboard = useGetMediLensDashboard();
-  const demo = useGetDemoReport();
-  const glossary = useGetGlossary(glossaryParams);
-  const sources = useGetMediLensSources();
+  const dashboard = useGetMediLensDashboard({ query: { initialData: localDashboard, staleTime: Infinity, retry: false } });
+  const demo = useGetDemoReport({ query: { initialData: localDemoReport, staleTime: Infinity, retry: false } });
+  const glossary = useGetGlossary(glossaryParams, { query: { initialData: localGlossary.filter(entry => !glossaryParams.search || [entry.term, entry.simple, entry.detailed].some(value => value.toLowerCase().includes(glossaryParams.search!.toLowerCase()))), staleTime: Infinity, retry: false } });
+  const sources = useGetMediLensSources({ query: { initialData: localSources, staleTime: Infinity, retry: false } });
   const queryClient = useQueryClient();
   const [uploadController, setUploadController] = useState<AbortController | null>(null);
   const uploadInputRef = useRef<HTMLInputElement>(null);
